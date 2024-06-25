@@ -9,8 +9,8 @@ export default () => {
     <div>
       <HashRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<LoginPage />} />
         </Routes>
       </HashRouter>
     </div>
