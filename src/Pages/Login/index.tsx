@@ -12,26 +12,11 @@ type FieldType = {
 
 var TOKEN_KEY = "wmg-token"
 
-function getJwtToken() {
-  return localStorage.getItem(TOKEN_KEY);
-}
-
 function setJwtToken(token: string) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
-function createAuthorizationTokenHeader() {
-  var token = getJwtToken();
-  if (token) {
-    return { "Authorization": "Bearer " + token };
-  } else {
-    return {};
-  }
-}
 
-const axiosInstance = axios.create({
-  headers: createAuthorizationTokenHeader()
-});
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
   console.log('Failed:', errorInfo);
@@ -47,17 +32,18 @@ interface Response {
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-
+  // const localUrl = 'http://117.50.199.236:8081';
+  const localUrl = 'http://localhost:8081/';
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
-      const response: Response = await axiosInstance.post('api/authenticate', values);
+      const response: Response = await axios.post(localUrl + 'api/authenticate', values);
       console.log('登录成功:', JSON.stringify(response));
       if (response.status === 200) {
         console.log('登录成功:', response);
 
         console.log("token", response.data.id_token)
         setJwtToken(response.data.id_token);
-        axiosInstance.defaults.headers.common = createAuthorizationTokenHeader(); // 更新头部
+
         navigate('/home');
       } else {
         message.error("登录失败，请重试");
@@ -74,7 +60,9 @@ const App: React.FC = () => {
 
 
   return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
     <Form
+      id = "basic"
       name="basic"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -114,6 +102,7 @@ const App: React.FC = () => {
         </Button>
       </Form.Item>
     </Form>
+    </div>
   )
 };
 

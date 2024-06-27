@@ -4,3 +4,10 @@
   margin:20px auto;
   border: 1px solid black;
 }
+
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 设置父容器高度为视口高度 */
+}

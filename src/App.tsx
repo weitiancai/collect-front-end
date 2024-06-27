@@ -1,18 +1,19 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
-import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './Pages/Login'
 import Home from './Pages/Home'
 
 
-export default () => {
+const App = () => {
   return (
     <div>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<LoginPage />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   )
 }
+
+export default App;
