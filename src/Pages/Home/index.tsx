@@ -79,10 +79,9 @@ const App: React.FC = () => {
     setEditData(record);
   };
 
-  const localUrl = 'http://localhost:8081/api/';
   const fetchData = useCallback(async () => {
     try {
-      const response = await axios.get(localUrl + `select?title=${search}&pageNum=${current}&pageSize=${pageSize}`);
+      const response = await axios.get(`/select?title=${search}&pageNum=${current}&pageSize=${pageSize}`);
       const { records, total } = response.data;
       setData(records);
       setTotal(total);
@@ -124,7 +123,7 @@ const App: React.FC = () => {
     try {
       const values = await form.validateFields();
       const updatedData = { ...editData, ...values };
-      await axios.post(localUrl + 'edit', updatedData);
+      await axios.post('/edit', updatedData);
       fetchData();
       setEditData(null);
     } catch (error) {
@@ -140,7 +139,7 @@ const App: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.get(localUrl + 'delete', { params: { id } });
+      await axios.get('/delete', { params: { id } });
       fetchData();
     } catch (error) {
       setError('删除失败或无权限');

@@ -11,7 +11,7 @@ export const createAuthorizationTokenHeader = () => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: '/api/api',
   timeout: 10000,
 });
 

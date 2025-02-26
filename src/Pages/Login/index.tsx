@@ -1,6 +1,6 @@
 import React from 'react';
 import type { FormProps } from 'antd';
-import axios from 'axios';
+import axios from '../Home/myAxios';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,11 +32,9 @@ interface Response {
 
 const App: React.FC = () => {
   const navigate = useNavigate();
-  // const localUrl = 'http://117.50.199.236:8081';
-  const localUrl = 'http://localhost:8081/';
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
-      const response: Response = await axios.post(localUrl + 'api/authenticate', values);
+      const response: Response = await axios.post('/authenticate', values);
       console.log('登录成功:', JSON.stringify(response));
       if (response.status === 200) {
         console.log('登录成功:', response);
